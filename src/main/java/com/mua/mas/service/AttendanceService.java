@@ -165,6 +165,7 @@ public class AttendanceService {
     }
 
     private Boolean checkInside(Coordinate coordinate, List<Coordinate> bounds){
+        /*
         bounds.sort((c1, c2) -> {
             if (c1.getLat().equals(c2.getLat()) && c1.getLon().equals(c2.getLon())) {
                 return 0;
@@ -174,6 +175,7 @@ public class AttendanceService {
             }
             return c1.getLat() > c2.getLat() ? 1 : -1;
         });
+        */
         int amplifier = 1000000;
         Polygon polygon = new Polygon();
         polygon.npoints = bounds.size();
