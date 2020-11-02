@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ClassroomRepo extends JpaRepository<Classroom,Long> {
 
-    @Query("select new com.mua.mas.dto.ClassroomDto(classroom) " +
+    @Query("select distinct new com.mua.mas.dto.ClassroomDto(classroom) " +
             "from Classroom classroom " +
             "join classroom.userClassroomRoleList userclassroomrole " +
             "where userclassroomrole.user.userId=?1 " +

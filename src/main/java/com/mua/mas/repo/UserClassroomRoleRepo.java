@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface UserClassroomRoleRepo extends JpaRepository<UserClassroomRole,Long> {
     Optional<UserClassroomRole> findByUser_UserIdAndClassroom_ClassroomId(Long userId, Long classroomId);
-    @Query("select new com.mua.mas.dto.UserClassroomRoleDto(ucr) from UserClassroomRole ucr where ucr.classroom.classroomId = ?1")
+    @Query("select distinct new com.mua.mas.dto.UserClassroomRoleDto(ucr) from UserClassroomRole ucr where ucr.classroom.classroomId = ?1")
     List<UserClassroomRoleDto> findByClassroom_ClassroomId(Long classroomId);
 
 }

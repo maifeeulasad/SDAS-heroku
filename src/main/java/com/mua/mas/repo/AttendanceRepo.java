@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface AttendanceRepo extends JpaRepository<Attendance,Long> {
 
-    @Query("select new com.mua.mas.dto.AttendanceDto(attendance,false) from Attendance attendance where attendance.session.sessionId=?1")
+    @Query("select distinct new com.mua.mas.dto.AttendanceDto(attendance,false) from Attendance attendance where attendance.session.sessionId=?1")
     List<AttendanceDto> findBySessionId(Long sessionId);
 
-    @Query("select new com.mua.mas.dto.AttendanceDto(attendance,true) from Attendance attendance where attendance.session.sessionId=?1")
+    @Query("select distinct new com.mua.mas.dto.AttendanceDto(attendance,true) from Attendance attendance where attendance.session.sessionId=?1")
     List<AttendanceDto> findBySessionIdSuper(Long sessionId);
 
 
