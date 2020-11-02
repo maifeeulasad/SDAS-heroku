@@ -8,15 +8,13 @@ import com.mua.mas.repo.ClassroomRepo;
 import com.mua.mas.repo.SessionRepo;
 import com.mua.mas.repo.UserClassroomRoleRepo;
 import com.mua.mas.repo.UserRepo;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ClassroomService {
@@ -37,7 +35,7 @@ public class ClassroomService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return -1L;
             }
             User user = optionalUser.get();
@@ -45,8 +43,9 @@ public class ClassroomService {
             classroom.setName(name);
             classroom.setDetails(details);
             UserClassroomRole userClassroomRole = new UserClassroomRole(user,role,classroom);
-            classroom.setUserClassroomRoleList(List.of(userClassroomRole));
-            user.setUserClassroomRoles(List.of(userClassroomRole));
+
+            classroom.setUserClassroomRoleList(Collections.singletonList(userClassroomRole));
+            user.setUserClassroomRoles(Collections.singletonList(userClassroomRole));
             UserClassroomRole saveUserClassroomRole=userClassroomRoleRepo.save(userClassroomRole);
             return saveUserClassroomRole.getClassroom().getClassroomId();
         }
@@ -58,18 +57,18 @@ public class ClassroomService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return false;
             }
             Optional<Classroom> classroomOptional = classroomRepo.findById(classroomId);
-            if(classroomOptional.isEmpty()){
+            if(!classroomOptional.isPresent()){
                 return false;
             }
             Classroom classroom = classroomOptional.get();
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(),classroomId);
-            if(optionalUserClassroomRole.isEmpty()){
+            if(!optionalUserClassroomRole.isPresent()){
                 UserClassroomRole userClassroomRole = new UserClassroomRole(user,Role.Pending,classroom);
                 user.getUserClassroomRoles().add(userClassroomRole);
                 userClassroomRole.setUser(user);
@@ -84,7 +83,7 @@ public class ClassroomService {
 
     public Boolean add(Long classroomId, Long userId, Role role) {
         Optional<User> user = userRepo.findById(userId);
-        if(user.isEmpty()){
+        if(!user.isPresent()){
             return false;
         }
         return add(classroomId,user.get(),role);
@@ -92,7 +91,7 @@ public class ClassroomService {
 
     public Boolean add(Long classroomId, String username, Role role) {
         Optional<User> user = userRepo.findByUsername(username);
-        if(user.isEmpty()){
+        if(!user.isPresent()){
             return false;
         }
         return add(classroomId,user.get(),role);
@@ -103,17 +102,17 @@ public class ClassroomService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return false;
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(),classroomId);
-            if(optionalUserClassroomRole.isEmpty()){
+            if(!optionalUserClassroomRole.isPresent()){
                 return false;
             }
             Optional<Classroom> optionalClassroom = classroomRepo.findById(classroomId);
-            if(optionalClassroom.isEmpty()){
+            if(!optionalClassroom.isPresent()){
                 return false;
             }
             Classroom classroom = optionalClassroom.get();
@@ -139,7 +138,7 @@ public class ClassroomService {
 
     public Boolean assign(Long classroomId, Long userId, Role role) {
         Optional<User> user = userRepo.findById(userId);
-        if(user.isEmpty()){
+        if(!user.isPresent()){
             return false;
         }
         return assign(classroomId,user.get(),role);
@@ -147,7 +146,7 @@ public class ClassroomService {
 
     public Boolean remove(Long classroomId, String username) {
         Optional<User> user = userRepo.findByUsername(username);
-        if(user.isEmpty()){
+        if(!user.isPresent()){
             return false;
         }
         return remove(classroomId,user.get());
@@ -155,7 +154,7 @@ public class ClassroomService {
 
     public Boolean remove(Long classroomId, Long userId) {
         Optional<User> user = userRepo.findById(userId);
-        if(user.isEmpty()){
+        if(!user.isPresent()){
             return false;
         }
         return remove(classroomId,user.get());
@@ -167,17 +166,17 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return false;
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalCurrentUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if (optionalCurrentUserClassroomRole.isEmpty()) {
+            if (!optionalCurrentUserClassroomRole.isPresent()) {
                 return false;
             }
             Optional<Classroom> optionalClassroom = classroomRepo.findById(classroomId);
-            if(optionalClassroom.isEmpty()){
+            if(!optionalClassroom.isPresent()){
                 return false;
             }
             Classroom classroom = optionalClassroom.get();;
@@ -185,7 +184,7 @@ public class ClassroomService {
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(userTobeAssigned.getUserId(), classroomId);
-            if (optionalUserClassroomRole.isEmpty()) {
+            if (!optionalUserClassroomRole.isPresent()) {
                 return true;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
@@ -202,7 +201,7 @@ public class ClassroomService {
 
     public Boolean assign(Long classroomId, String username, Role role) {
         Optional<User> user = userRepo.findByUsername(username);
-        if(user.isEmpty()){
+        if(!user.isPresent()){
             return false;
         }
         return assign(classroomId,user.get(),role);
@@ -216,17 +215,17 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return false;
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalCurrentUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if (optionalCurrentUserClassroomRole.isEmpty()) {
+            if (!optionalCurrentUserClassroomRole.isPresent()) {
                 return false;
             }
             Optional<Classroom> optionalClassroom = classroomRepo.findById(classroomId);
-            if(optionalClassroom.isEmpty()){
+            if(!optionalClassroom.isPresent()){
                 return false;
             }
             Classroom classroom = optionalClassroom.get();;
@@ -235,7 +234,7 @@ public class ClassroomService {
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(userTobeAssigned.getUserId(), classroomId);
             UserClassroomRole userClassroomRole;
-            if (optionalUserClassroomRole.isEmpty()) {
+            if (!optionalUserClassroomRole.isPresent()) {
                 userClassroomRole = new UserClassroomRole();
                 userClassroomRole.setClassroom(classroom);
                 classroom.getUserClassroomRoleList().add(userClassroomRole);
@@ -260,7 +259,7 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return new ArrayList<>();
             }
             User user = optionalUser.get();
@@ -275,7 +274,7 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return new ArrayList<>();
             }
             User user = optionalUser.get();
@@ -289,17 +288,17 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return new ArrayList<>();
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalCurrentUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if (optionalCurrentUserClassroomRole.isEmpty()) {
+            if (!optionalCurrentUserClassroomRole.isPresent()) {
                 return new ArrayList<>();
             }
             Optional<Classroom> optionalClassroom = classroomRepo.findById(classroomId);
-            if(optionalClassroom.isEmpty()){
+            if(!optionalClassroom.isPresent()){
                 return new ArrayList<>();
             }
             Role role = optionalCurrentUserClassroomRole.get().getRole();
@@ -321,12 +320,12 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return new ArrayList<>();
             }
             User user = optionalUser.get();
             Optional<Classroom> optionalClassroom = classroomRepo.findById(classroomId);
-            if(optionalClassroom.isEmpty()){
+            if(!optionalClassroom.isPresent()){
                 return new ArrayList<>();
             }
             List<UserClassroomRoleDto> userClassroomRoles
@@ -343,13 +342,13 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return null;
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if (optionalUserClassroomRole.isEmpty()) {
+            if (!optionalUserClassroomRole.isPresent()) {
                 return null;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
@@ -363,13 +362,13 @@ public class ClassroomService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return false;
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo.findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if (optionalUserClassroomRole.isEmpty()) {
+            if (!optionalUserClassroomRole.isPresent()) {
                 return false;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();

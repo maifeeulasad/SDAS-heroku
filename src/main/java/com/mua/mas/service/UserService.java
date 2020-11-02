@@ -21,7 +21,7 @@ public class UserService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return false;
             }
             User user = optionalUser.get();
@@ -40,7 +40,7 @@ public class UserService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return false;
             }
             User user = optionalUser.get();
@@ -59,7 +59,7 @@ public class UserService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return false;
             }
             User user = optionalUser.get();
@@ -78,7 +78,7 @@ public class UserService {
         if(authentication.isAuthenticated()){
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return null;
             }
             User user = optionalUser.get();
@@ -94,7 +94,7 @@ public class UserService {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication.isAuthenticated()){
             Optional<User> optionalUser = userRepo.findById(userId);
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return null;
             }
             User user = optionalUser.get();
@@ -111,11 +111,11 @@ public class UserService {
         if(authentication.isAuthenticated()) {
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if (optionalUser.isEmpty()) {
+            if (!optionalUser.isPresent()) {
                 return false;
             }
             Optional<User> optionalUserTarget = userRepo.findById(userId);
-            if(optionalUserTarget.isEmpty()){
+            if(!optionalUserTarget.isPresent()){
                 return false;
             }
             User userTarget = optionalUserTarget.get();

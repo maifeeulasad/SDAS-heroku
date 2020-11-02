@@ -32,12 +32,12 @@ public class AttendanceService {
         if(authentication.isAuthenticated()) {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(userPrincipal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return false;
             }
             User user = optionalUser.get();
             Optional<Session> optionalSession = sessionRepo.findById(sessionId);
-            if(optionalSession.isEmpty()){
+            if(!optionalSession.isPresent()){
                 return false;
             }
             Session session = optionalSession.get();
@@ -45,7 +45,7 @@ public class AttendanceService {
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if(optionalUserClassroomRole.isEmpty()){
+            if(!optionalUserClassroomRole.isPresent()){
                 return false;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
@@ -88,12 +88,12 @@ public class AttendanceService {
         if(authentication.isAuthenticated()) {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalCurrentUser = userRepo.findByUsername(userPrincipal.getUsername());
-            if (optionalCurrentUser.isEmpty()) {
+            if (!optionalCurrentUser.isPresent()) {
                 return false;
             }
             User currentUser = optionalCurrentUser.get();
             Optional<Session> optionalSession = sessionRepo.findById(sessionId);
-            if(optionalSession.isEmpty()){
+            if(!optionalSession.isPresent()){
                 return false;
             }
             Session session = optionalSession.get();
@@ -102,7 +102,7 @@ public class AttendanceService {
             Optional<UserClassroomRole> optionalCurrentUserClassroomRole
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(currentUser.getUserId(), classroomId);
-            if(optionalCurrentUserClassroomRole.isEmpty()){
+            if(!optionalCurrentUserClassroomRole.isPresent()){
                 return false;
             }
             UserClassroomRole currentUserClassroomRole = optionalCurrentUserClassroomRole.get();
@@ -110,14 +110,14 @@ public class AttendanceService {
                 return false;
             }
             Optional<Attendance> optionalAttendance = attendanceRepo.findById(attendanceId);
-            if(optionalAttendance.isEmpty()){
+            if(!optionalAttendance.isPresent()){
                 return false;
             }
             Attendance attendance = optionalAttendance.get();
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(attendance.getUser().getUserId(),classroomId);
-            if(optionalUserClassroomRole.isEmpty()){
+            if(!optionalUserClassroomRole.isPresent()){
                 return false;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
@@ -138,12 +138,12 @@ public class AttendanceService {
         if(authentication.isAuthenticated()) {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(userPrincipal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return new ArrayList<>();
             }
             User user = optionalUser.get();
             Optional<Session> optionalSession = sessionRepo.findById(sessionId);
-            if(optionalSession.isEmpty()){
+            if(!optionalSession.isPresent()){
                 return new ArrayList<>();
             }
             Session session = optionalSession.get();
@@ -151,7 +151,7 @@ public class AttendanceService {
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if(optionalUserClassroomRole.isEmpty()){
+            if(!optionalUserClassroomRole.isPresent()){
                 return new ArrayList<>();
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
@@ -175,7 +175,7 @@ public class AttendanceService {
             }
             return c1.getLat() > c2.getLat() ? 1 : -1;
         });
-        */
+         */
         int amplifier = 1000000;
         Polygon polygon = new Polygon();
         polygon.npoints = bounds.size();

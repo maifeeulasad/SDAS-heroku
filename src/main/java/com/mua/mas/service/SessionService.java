@@ -28,20 +28,20 @@ public class SessionService {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication.isAuthenticated()) {
             Optional<Classroom> optionalClassroom = classroomRepo.findById(classroomId);
-            if(optionalClassroom.isEmpty()){
+            if(!optionalClassroom.isPresent()){
                 return -1L;
             }
             Classroom classroom = optionalClassroom.get();
             UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
             Optional<User> optionalUser = userRepo.findByUsername(principal.getUsername());
-            if(optionalUser.isEmpty()){
+            if(!optionalUser.isPresent()){
                 return -1L;
             }
             User user = optionalUser.get();
             Optional<UserClassroomRole> optionalUserClassroomRole
                     = userClassroomRoleRepo
                     .findByUser_UserIdAndClassroom_ClassroomId(user.getUserId(), classroomId);
-            if(optionalUserClassroomRole.isEmpty()){
+            if(!optionalUserClassroomRole.isPresent()){
                 return -1L;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
