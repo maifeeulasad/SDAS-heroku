@@ -24,10 +24,14 @@ public class AttendanceController {
     @PostMapping("/attend")
     public Boolean attend(@RequestParam(name = "session_id") Long sessionId,
                           @RequestBody Attendance attendance){
+        if(attendance.getCode()==null
+                || attendance.getCoordinate()==null){
+            return false;
+        }
         return service.attend(sessionId,attendance);
     }
 
-    @PostMapping("/verify")
+    @GetMapping("/verify")
     public Boolean verify(@RequestParam(name = "session_id") Long sessionId,
                           @RequestParam(name = "attendance_id") Long attendanceId,
                           @RequestParam State state){

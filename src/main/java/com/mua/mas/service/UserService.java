@@ -1,13 +1,16 @@
 package com.mua.mas.service;
 
+import com.mua.mas.dto.UserAttendance;
 import com.mua.mas.model.User;
 import com.mua.mas.model.UserPrincipal;
+import com.mua.mas.repo.AttendanceRepo;
 import com.mua.mas.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +18,8 @@ public class UserService {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private AttendanceRepo attendanceRepo;
 
     public Boolean edit(String name,String email){
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -125,4 +130,7 @@ public class UserService {
         return false;
     }
 
+    public List<UserAttendance> attendances() {
+        return null;
+    }
 }

@@ -42,4 +42,13 @@ public class UserController {
         return service.isSameUser(userId);
     }
 
+    /*
+    @GetMapping("/attendances")
+    public List<UserAttendance> attendances(){
+        return service.attendances();
+    }
+
+     */
+
+
 }

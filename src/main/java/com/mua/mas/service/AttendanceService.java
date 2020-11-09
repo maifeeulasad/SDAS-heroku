@@ -12,8 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 @Service
 public class AttendanceService {
@@ -56,6 +56,11 @@ public class AttendanceService {
             user.getAttendances().add(attendance);
             attendance.setSession(session);
             session.getAttendances().add(attendance);
+            /*
+            System.out.println("code : "+attendance.getCode().equals(session.getCode()));
+            System.out.println("time : "+checkWithinTime(session.getCreationTime(),session.getMinutes()));
+            System.out.println("inside : "+checkInside(attendance.getCoordinate(),session.getBounds()));
+            */
             if(attendance.getCode().equals(session.getCode())
                     && checkWithinTime(session.getCreationTime(),session.getMinutes())
                     && checkInside(attendance.getCoordinate(),session.getBounds())){
@@ -121,7 +126,7 @@ public class AttendanceService {
                 return false;
             }
             UserClassroomRole userClassroomRole = optionalUserClassroomRole.get();
-            if(userClassroomRole.getRole() != Role.Student || userClassroomRole.getRole() != Role.CR){
+            if(userClassroomRole.getRole() != Role.Student && userClassroomRole.getRole() != Role.CR){
                 return false;
             }
             attendance.setState(state);
@@ -166,16 +171,11 @@ public class AttendanceService {
 
     private Boolean checkInside(Coordinate coordinate, List<Coordinate> bounds){
         /*
-        bounds.sort((c1, c2) -> {
-            if (c1.getLat().equals(c2.getLat()) && c1.getLon().equals(c2.getLon())) {
-                return 0;
-            }
-            if (c1.getLat().equals(c2.getLat())) {
-                return c1.getLon() > c2.getLon() ? 1 : -1;
-            }
-            return c1.getLat() > c2.getLat() ? 1 : -1;
-        });
-         */
+        System.out.println("coordinate "+coordinate);
+        for(Coordinate bound:bounds){
+            System.out.println("c "+bound);
+        }
+        */
         int amplifier = 1000000;
         Polygon polygon = new Polygon();
         polygon.npoints = bounds.size();

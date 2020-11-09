@@ -5,17 +5,11 @@ import com.mua.mas.dto.SessionDto;
 import com.mua.mas.dto.UserClassroomRoleDto;
 import com.mua.mas.model.Classroom;
 import com.mua.mas.model.Role;
-import com.mua.mas.model.Session;
-import com.mua.mas.model.UserClassroomRole;
 import com.mua.mas.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/classroom")

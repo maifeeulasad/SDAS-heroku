@@ -28,6 +28,9 @@ public class AuthService {
             user.setUsername(username);
             user.setName(username);
             loginCredential.setUser(user);
+            //System.out.println("username" +user.getUsername());
+            //System.out.println("lc username" +loginCredential.getUser().getUsername());
+            //user.setLoginCredential(loginCredential);
             loginCredentialRepo.save(loginCredential);
             return true;
         }

@@ -14,6 +14,8 @@ public class AuthController {
 
     @PostMapping("/join")
     public Boolean join(@RequestBody LoginCredential loginCredential){
+        //System.out.println("get username"+loginCredential.getUsername());
+        //System.out.println("get pass"+loginCredential.getPassword());
         return service.join(loginCredential.getUsername(), loginCredential.getPassword());
     }
 

@@ -1,9 +1,7 @@
 package com.mua.mas.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +26,6 @@ public class Classroom {
     private List<Session> sessions = new ArrayList<>();
 
     @JsonFormat(pattern="MMM d, yyyy h:mm:ss a")
-    private Date nextSessionTime;
+    private Date nextSessionTime = new Date();
 
 }

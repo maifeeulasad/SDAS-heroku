@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Main-Class: com.mua.mas.MasApplication
+Class-Path: lombok-1.18.12.jar netty-transport-native-unix-common-4.1.52
+ .Final.jar spring-data-commons-2.3.4.RELEASE.jar rsocket-transport-nett
+ y-1.0.2.jar spring-webflux-5.2.9.RELEASE.jar spring-boot-starter-securi
+ ty-2.3.4.RELEASE.jar netty-resolver-4.1.52.Final.jar spring-boot-starte
+ r-tomcat-2.3.4.RELEASE.jar jakarta.xml.bind-api-2.3.3.jar nio-stream-st
+ orage-1.1.3.jar spring-boot-starter-jdbc-2.3.4.RELEASE.jar jakarta.anno
+ tation-api-1.3.5.jar spring-boot-starter-web-2.3.4.RELEASE.jar spring-t
+ x-5.2.9.RELEASE.jar spring-aop-5.2.9.RELEASE.jar netty-handler-4.1.52.F
+ inal.jar reactor-netty-0.9.12.RELEASE.jar jakarta.activation-api-1.2.2.
+ jar netty-common-4.1.52.Final.jar jboss-logging-3.4.1.Final.jar rsocket
+ -core-1.0.2.jar HikariCP-3.4.5.jar antlr-2.7.7.jar spring-webmvc-5.2.9.
+ RELEASE.jar jul-to-slf4j-1.7.30.jar javassist-3.24.0-GA.jar spring-bean
+ s-5.2.9.RELEASE.jar spring-boot-starter-logging-2.3.4.RELEASE.jar commo
+ ns-codec-1.14.jar snakeyaml-1.26.jar spring-security-config-5.3.4.RELEA
+ SE.jar istack-commons-runtime-3.0.11.jar jakarta.persistence-api-2.2.3.
+ jar nio-multipart-parser-1.1.0.jar netty-buffer-4.1.52.Final.jar spring
+ -aspects-5.2.9.RELEASE.jar spring-boot-starter-rsocket-2.2.2.RELEASE.ja
+ r spring-boot-starter-data-jpa-2.3.4.RELEASE.jar jackson-annotations-2.
+ 11.2.jar txw2-2.3.3.jar netty-codec-http-4.1.52.Final.jar log4j-to-slf4
+ j-2.13.3.jar netty-codec-http2-4.1.52.Final.jar spring-boot-starter-rea
+ ctor-netty-2.3.4.RELEASE.jar spring-jdbc-5.2.9.RELEASE.jar jaxb-runtime
+ -2.3.3.jar slf4j-api-1.7.30.jar log4j-api-2.13.3.jar netty-handler-prox
+ y-4.1.52.Final.jar logback-classic-1.2.3.jar spring-data-jpa-2.3.4.RELE
+ ASE.jar jackson-core-2.11.2.jar spring-security-core-5.3.4.RELEASE.jar 
+ tomcat-embed-core-9.0.38.jar spring-security-web-5.3.4.RELEASE.jar spri
+ ng-boot-starter-2.3.4.RELEASE.jar reactor-core-3.3.10.RELEASE.jar netty
+ -transport-native-epoll-4.1.52.Final-linux-x86_64.jar jackson-dataforma
+ t-cbor-2.11.2.jar byte-buddy-1.10.14.jar java-jwt-3.8.3.jar jakarta.act
+ ivation-1.2.2.jar tomcat-embed-websocket-9.0.38.jar jackson-databind-2.
+ 11.2.jar spring-messaging-5.2.9.RELEASE.jar jackson-datatype-jdk8-2.11.
+ 2.jar spring-boot-2.3.4.RELEASE.jar spring-boot-starter-webflux-2.3.4.R
+ ELEASE.jar jandex-2.1.3.Final.jar jackson-module-parameter-names-2.11.2
+ .jar spring-boot-starter-aop-2.3.4.RELEASE.jar spring-orm-5.2.9.RELEASE
+ .jar netty-codec-4.1.52.Final.jar spring-web-5.2.9.RELEASE.jar logback-
+ core-1.2.3.jar reactive-streams-1.0.3.jar dom4j-2.1.3.jar spring-boot-s
+ tarter-json-2.3.4.RELEASE.jar hibernate-core-5.4.21.Final.jar spring-jc
+ l-5.2.9.RELEASE.jar aspectjweaver-1.9.6.jar h2-1.4.200.jar jakarta.tran
+ saction-api-1.3.3.jar hibernate-commons-annotations-5.1.0.Final.jar jak
+ arta.el-3.0.3.jar netty-transport-4.1.52.Final.jar netty-codec-socks-4.
+ 1.52.Final.jar spring-core-5.2.9.RELEASE.jar spring-expression-5.2.9.RE
+ LEASE.jar spring-boot-autoconfigure-2.3.4.RELEASE.jar spring-context-5.
+ 2.9.RELEASE.jar jackson-datatype-jsr310-2.11.2.jar classmate-1.5.1.jar
+
